@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, make_response, abort, url_for
 import pymongo
 from bson.objectid import ObjectId
-from bson.json_util import dumps
+#from bson.json_util import dumps
 from werkzeug.utils import secure_filename
 import rosbag
 import yaml
@@ -20,14 +20,14 @@ import isodate as iso
 
 mod = Blueprint('api', __name__)
 
-USER = os.environ.get('MONGO_USER')
-PASSWD = os.environ.get('MONGO_PASSWORD')
-SERVER = os.environ.get('MONGO_SERVER')
 DB = 'rosbagdb'
-MONGO_CONNECTION_STRING = "mongodb+srv://"+USER+":"+PASSWD+"@"+SERVER+"/"+DB+"?retryWrites=true&w=majority"
-
 if os.environ.get('MONGO_CONNECTION_STRING') is not None:
     MONGO_CONNECTION_STRING = os.environ.get('MONGO_CONNECTION_STRING')
+else:
+    USER = os.environ.get('MONGO_USER')
+    PASSWD = os.environ.get('MONGO_PASSWORD')
+    SERVER = os.environ.get('MONGO_SERVER')
+    MONGO_CONNECTION_STRING = "mongodb+srv://"+USER+":"+PASSWD+"@"+SERVER+"/"+DB+"?retryWrites=true&w=majority"
 
 MONGO_DB = pymongo.MongoClient(MONGO_CONNECTION_STRING)[DB]
 FS = gridfs.GridFS(MONGO_DB)
