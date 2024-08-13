@@ -7,4 +7,4 @@ pymongo==3.9.0
 isodate==0.6.0
 #requests==2.22.0
 #redis
-dnspython==1.16.0
+dnspython==2.6.1
